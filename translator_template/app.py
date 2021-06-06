@@ -27,10 +27,10 @@ def generate(in_file: str, out_file: str) -> None:
 
     with open(in_file, "rt") as f:
         for page, panels in read(f):
-            document.add_paragraph(f"PAGE {page}", style="PagePara")
+            document.add_paragraph(f"PAGE {page}", style=page_style.name)
             for panel in range(panels):
-                document.add_paragraph(f"PANEL {panel+1}", style="PanelPara")
-                document.add_paragraph("", style="QuotePara")
+                document.add_paragraph(f"PANEL {panel+1}", style=panel_style.name)
+                document.add_paragraph("", style=quote_style.name)
     document.save(out_file)
 
 
