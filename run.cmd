@@ -1,0 +1,1 @@
+poetry run generate --in-file %1
