@@ -1,4 +1,5 @@
 import argparse
+import os
 
 from docx import Document
 from docx.shared import Inches, Pt
@@ -37,7 +38,12 @@ def main():
     parser = argparse.ArgumentParser(
         description="Generate a Word Document from page/panel specification"
     )
-    parser.add_argument("--in-file", help="input file name")
+    parser.add_argument("--in-file", help="input file name", required=True)
     parser.add_argument("--out-file", help="output file name")
     args = parser.parse_args()
-    generate(args.in_file, args.out_file)
+    if args.out_file:
+        out_file = args.out_file
+    else:
+        root, _ = os.path.splitext(args.in_file)
+        out_file = root + ".docx"
+    generate(args.in_file, out_file)
