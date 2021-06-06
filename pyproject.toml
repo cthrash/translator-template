@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "translator-template"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Chris Thrasher <cthrash@github.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.7"
 python-docx = "^0.8.11"
 
 [tool.poetry.dev-dependencies]

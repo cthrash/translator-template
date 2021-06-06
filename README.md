@@ -3,7 +3,7 @@ Generate a Word Document Template for Translator
 
 ## Prerequisite
 
-* python 3.8 or greater
+* python 3.7 or greater
 * poetry
 
 Download the dependent modules by running `poetry install`
@@ -13,6 +13,8 @@ Download the dependent modules by running `poetry install`
 ```
 poetry run generate --in-file {input-text-file} --out-file {output-docx-file}
 ```
+
+If the `--out-file` argument is omitted, the `--in-file` argument value is used, with the extension replaced with `.docx`.
 
 ## Input Format Specification
 
