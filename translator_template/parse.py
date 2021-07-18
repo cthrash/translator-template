@@ -12,7 +12,7 @@ def read(f) -> Iterator[Tuple[str, int]]:
                 pass
             elif c == "-":
                 yield f"PAGES {page}-{page+1}", frame
-                page += 1
+                page += 2
                 frame = None
             elif c == "*":
                 combo = not combo
