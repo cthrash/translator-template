@@ -14,3 +14,5 @@ def test_read():
     assert [("PAGE 1", 56)] == read_from("*56*")
     assert [("PAGES 1-2", 56), ("PAGE 3", 4)] == read_from("*56*-4")
     assert [("PAGE 1", 1), ("PAGE 2", 0), ("PAGE 3", 1)] == read_from("101")
+    assert [("PAGE 1", 1), ("PAGE 2", 23), ("PAGE 3", 4)] == read_from("1*23*4")
+    assert [("PAGE 1", 1), ("PAGE 2", 23), ("PAGE 3", 45)] == read_from("1*23**45*")

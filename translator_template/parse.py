@@ -14,14 +14,15 @@ def read(f) -> Iterator[Tuple[str, int]]:
                 yield f"PAGES {page}-{page+1}", frame
                 page += 2
                 frame = None
-            elif c == "*":
-                combo = not combo
-            elif c.isdigit():
+            elif c == "*" or c.isdigit():
                 if frame is not None and not combo:
                     yield f"PAGE {page}", frame
                     page += 1
                     frame = None
-                frame = (frame or 0) * 10 + int(c)
+                if c == '*':
+                    combo = not combo
+                else:
+                    frame = (frame or 0) * 10 + int(c)
             else:
                 raise RuntimeError(
                     f"Unexpected {c}, line {line_number}, position {line_position}"
