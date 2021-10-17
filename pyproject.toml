@@ -1,7 +1,8 @@
 [tool.poetry]
 name = "translator-template"
-version = "0.1.6"
-description = ""
+version = "0.1.7"
+license = "MIT"
+description = "Utility for generating a Microsoft Word file from a simple document description, for translators."
 authors = ["Chris Thrasher <cthrash@github.com>"]
 
 [tool.poetry.dependencies]
