@@ -19,7 +19,7 @@ def read(f) -> Iterator[Tuple[str, int]]:
                     yield f"PAGE {page}", frame
                     page += 1
                     frame = None
-                if c == '*':
+                if c == "*":
                     combo = not combo
                 else:
                     frame = (frame or 0) * 10 + int(c)
