@@ -37,4 +37,4 @@ PANEL = (
     "</w:p>"
 )
 
-QUOTE = "<w:p>" "<w:pPr>" '<w:pStyle w:val="QuotePara"/>' "</w:pPr>" "</w:p>"
+QUOTE = '<w:p><w:pPr><w:pStyle w:val="QuotePara"/></w:pPr></w:p>'
