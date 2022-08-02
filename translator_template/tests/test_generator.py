@@ -4,7 +4,7 @@ from tempfile import TemporaryDirectory
 from typing import IO, Union
 from zipfile import ZipFile
 
-from translator_template.app import generate, generate_to_file
+from translator_template.generator import generate, generate_to_file
 from translator_template.templates import EPILOG, PROLOG
 
 TEST_DIR = os.path.dirname(os.path.abspath(__file__))
