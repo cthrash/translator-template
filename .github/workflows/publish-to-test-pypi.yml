@@ -28,12 +28,12 @@ jobs:
         .
     - name: Publish to Test PyPI
       if: ${{ github.ref != 'refs/heads/main' }}
-      uses: pypa/gh-action-pypi-publish@master
+      uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.PYPI_TEST_TOKEN }}
         repository_url: https://test.pypi.org/legacy/
     - name: Publish to PyPI
       if: ${{ github.ref == 'refs/heads/main' }}
-      uses: pypa/gh-action-pypi-publish@master
+      uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.PYPI_PROD_TOKEN }}
