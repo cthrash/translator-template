@@ -1,6 +1,10 @@
 [tool.poetry]
 name = "translator-template"
+<<<<<<< HEAD
 version = "0.2.1"
+=======
+version = "0.2.1-alpha.0"
+>>>>>>> Patch version
 license = "MIT"
 description = "Utility for generating a Microsoft Word file from a simple document description, for translators."
 readme = "README.md"
