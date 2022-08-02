@@ -7,7 +7,7 @@ build:
 	poetry build
 
 test:
-	poetry run pytest
+	poetry run pytest --cov-report term-missing --cov=translator_template
 
 format:
 	poetry run black translator_template
