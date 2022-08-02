@@ -1,37 +1,46 @@
 import argparse
-import os
-
-from docx import Document
-from docx.shared import Inches, Pt
-from docx.enum.style import WD_STYLE_TYPE
+from io import BytesIO
+from os import path
+from typing import IO, Union
+from zipfile import ZipFile
 
 from .parse import read
+from .templates import EPILOG, PROLOG, PAGE, PANEL, QUOTE
 
 
-def generate(in_file: str, out_file: str) -> None:
+def generate_to_file(in_file: str, out_file: Union[str, IO]) -> None:
     """Read the input specification from the in_file file, and generate a Word document at out_file."""
-    document = Document()
-    normal_style = document.styles["Normal"]
-    normal_style.font.name = "Times New Roman"
-    normal_style.font.size = Pt(12)
+    bytes = generate(in_file)
+    with open(out_file, "wb") as f:
+        f.write(bytes)
 
-    def add_style(name: str, indent):
-        style = document.styles.add_style(name, WD_STYLE_TYPE.PARAGRAPH)
-        style.base_style = normal_style
-        style.paragraph_format.left_indent = Inches(indent)
-        return style
 
-    page_style = add_style("PagePara", 0)  # noqa(F841)
-    panel_style = add_style("PanelPara", 0.5)
-    quote_style = add_style("QuotePara", 1.0)
+def generate(in_file: str) -> bytes:
+    """Read the input specification from the in_file file, and generate a Word document to a byte buffer."""
+    with _load_zip() as stream:
+        with ZipFile(stream, mode="a") as zip:
+            doc = _generate(in_file)
+            zip.writestr("word/document.xml", doc)
+        return stream.getvalue()
 
+
+def _load_zip() -> IO:
+    zip_path = path.join(path.dirname(path.abspath(__file__)), "data", "test.docx")
+    with open(zip_path, "rb") as f:
+        stream = BytesIO(f.read())
+    return stream
+
+
+def _generate(in_file: str) -> str:
+    chunks = [PROLOG]
     with open(in_file, "rt") as f:
         for page, panels in read(f):
-            document.add_paragraph(f"{page}", style=page_style.name)
+            chunks.append(PAGE.format(page))
             for panel in range(panels):
-                document.add_paragraph(f"PANEL {panel+1}", style=panel_style.name)
-                document.add_paragraph("", style=quote_style.name)
-    document.save(out_file)
+                chunks.append(PANEL.format(panel + 1))
+                chunks.append(QUOTE)
+    chunks.append(EPILOG)
+    return "".join(chunks)
 
 
 def main():
@@ -44,6 +53,6 @@ def main():
     if args.out_file:
         out_file = args.out_file
     else:
-        root, _ = os.path.splitext(args.in_file)
+        root, _ = path.splitext(args.in_file)
         out_file = root + ".docx"
-    generate(args.in_file, out_file)
+    generate_to_file(args.in_file, out_file)
